@@ -11,6 +11,35 @@ dependent product in your buildout, and include the ZCML one way or another.
 Plone folders, large folders and collections will then gain a set of new
 views: atom.xml, feed.rdf, feed11.rdf, rss.xml and itunes.xml.
 
+Yes, *all* folders get this view. No, you don't have to enable syndication
+on the folder, which also means you don't have to find that enable syndication
+tab action that for some reason is invisible by default so that you can't turn
+on the standard RSS feed without knowing Plone inside and out for some
+incomprehensible reason.
+
+Settings
+--------
+
+By default this product will only use Documents, News Items and Files as 
+entries in the blog feed. If you want to use some custom content types you
+will need to do two things:
+
+1. Provide an IFeedEntry adapter. Look at the "adapters.py" file for an
+   examples made for News Item. As you see it's not particularily complicated.
+   You also need to register the adapter, look in configure.zcml to see how
+   that is done.
+   
+2. Create a property in portal.properties/site_properties called "blog_types"
+   of the "lines" type. Then in that property add each content type that
+   your site should see as being blog entries.
+   
+Podcasts
+--------
+
+collective.blog.feeds provides an adapter for the ATFile content type with
+podcast enclosure support. You can therefore make podcasts simply by making
+a folder and sticking files in it.
+
 
 What this product do not have
 -----------------------------
