@@ -1,7 +1,11 @@
+from zope import interface
 from Products.fatsyndication.adapters.feedsource import BaseFeedSource
+from Products.fatsyndication.adapters.feedentry import DocumentFeedEntry
 from Products.CMFCore.utils import getToolByName
-from Products.basesyndication.interfaces import IFeedEntry
+from Products.basesyndication.interfaces import IFeedEntry, IEnclosure
 
+
+# Feedsource for Folder, Large Folder and Collection:
 
 class FeedSource(BaseFeedSource):
         
@@ -10,7 +14,7 @@ class FeedSource(BaseFeedSource):
         site_properties = getattr(portal_properties, 'site_properties', None)
         portal_types = site_properties.getProperty('blog_types', None)
         if portal_types == None:
-            portal_types = ('Document', 'News Item',)
+            portal_types = ('Document', 'News Item', 'File')
 
         brains = self._getBrains(portal_types)
         if max_only:
@@ -33,10 +37,63 @@ class TopicFeedSource(FeedSource):
     def _getBrains(self, portal_types):
         return self.context.queryCatalog()
 
-    
-from Products.fatsyndication.adapters.feedentry import DocumentFeedEntry
+# FeedEntry adapters for News Item and File (podcasts, oh yeah!)
 
 class NewsItemFeedEntry(DocumentFeedEntry):
     
     def getBody(self):
         return self.context.getImage().tag() + self.context.CookedBody()
+
+class FileFeedEntry(DocumentFeedEntry):
+    
+    def getBody(self):
+        return ''
+    
+    def getEnclosure(self):
+        return IEnclosure(self.context)
+ 
+    
+# Enclosure adapter for ATFile:
+
+class ATFileEnclosure:
+    
+    interface.implements(IEnclosure)
+    
+    def __init__(self, context):
+        self.context = context
+        self.file = context.getFile()
+    
+    def getURL(self):
+        """URL of the enclosed file.
+        """
+        return self.context.absolute_url()
+
+    def getLength(self):
+        """Return the size/length of the enclosed file.
+        """
+        return int(self.file.get_size())
+
+    def __len__(self):
+        """Synonym for getLength
+        """
+        return self.getLength()
+
+    def getMajorType(self):
+        """Return the major content-type of the enclosed file.
+
+            e.g. content-type = 'text/plain' would return 'text'.
+        """
+        return self.getType().split('/')[0]
+
+
+    def getMinorType(self):
+        """Return the minor content-type of the enclosed file.
+
+            e.g. content-type = 'text/plain' would return 'plain'.
+        """
+        return self.getType().split('/')[1]
+
+    def getType(self):
+        """Return the content-type of the enclosed file.
+        """
+        return self.file.getContentType()

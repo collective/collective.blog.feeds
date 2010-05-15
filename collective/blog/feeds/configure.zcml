@@ -47,4 +47,16 @@
     factory="collective.blog.feeds.adapters.NewsItemFeedEntry"
     /> 
 
+  <adapter
+    for="Products.ATContentTypes.content.file.ATFile"
+    provides="Products.basesyndication.interfaces.IFeedEntry"
+    factory="collective.blog.feeds.adapters.FileFeedEntry"
+    /> 
+
+  <adapter
+    for="Products.ATContentTypes.content.file.ATFile"
+    provides="Products.basesyndication.interfaces.IEnclosure"
+    factory="collective.blog.feeds.adapters.ATFileEnclosure"
+    />
+    
 </configure>
