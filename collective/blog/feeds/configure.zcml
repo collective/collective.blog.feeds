@@ -36,9 +36,15 @@
     />
     
   <adapter
-      for="Products.ATContentTypes.content.base.ATCTContent"
-      provides="Products.basesyndication.interfaces.IFeedEntry"
-      factory="Products.fatsyndication.adapters.DocumentFeedEntry" /> 
+    for="Products.ATContentTypes.content.document.ATDocument"
+    provides="Products.basesyndication.interfaces.IFeedEntry"
+    factory="Products.fatsyndication.adapters.DocumentFeedEntry"
+    /> 
     
+  <adapter
+    for="Products.ATContentTypes.content.newsitem.ATNewsItem"
+    provides="Products.basesyndication.interfaces.IFeedEntry"
+    factory="collective.blog.feeds.adapters.NewsItemFeedEntry"
+    /> 
 
 </configure>
