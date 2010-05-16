@@ -1,0 +1,20 @@
+<link rel="alternate" href="" title="Atom 2005"
+      type="application/atom+xml"
+      tal:attributes="href string:${context/absolute_url}/atom.xml"
+      />
+<link rel="alternate" href="" title="RDF 1.0"
+      type="application/rdf+xml"
+      tal:attributes="href string:${context/absolute_url}/feed.rdf"
+      />
+<link rel="alternate" href="" title="RDF 1.1"
+      type="application/rdf+xml"
+      tal:attributes="href string:${context/absolute_url}/feed11.rdf"
+      />
+<link rel="alternate" href="" title="RSS 1.0"
+      type="application/rss+xml"
+      tal:attributes="href string:${context/absolute_url}/rss.xml"
+      />
+<link rel="alternate" href="" title="RSS 2.0"
+      type="application/rss+xml"
+      tal:attributes="href string:${context/absolute_url}/itunes.xml"
+      />
