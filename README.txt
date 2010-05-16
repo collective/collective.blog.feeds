@@ -17,6 +17,11 @@ tab action that for some reason is invisible by default so that you can't turn
 on the standard RSS feed without knowing Plone inside and out for some
 incomprehensible reason.
 
+It also adds the feeds to the plone header with the standard 
+'<link rel="alternate" ...>' type of header links. There probably should be
+a way to turn that off or on, but currently there isn't.
+
+
 Settings
 --------
 
