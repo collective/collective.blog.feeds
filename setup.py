@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = open(os.path.join("collective", "blog", "feeds", "version.txt")).read().strip()
 
 setup(name='collective.blog.feeds',
       version=version,
