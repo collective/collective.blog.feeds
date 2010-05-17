@@ -54,3 +54,5 @@ so you need to change the settings through the ZMI. There will also never be
 any per-folder settings, as that would require extending the schema for 
 folders or have a dedicated blog type, both which will defeat the main goal
 of this product: simplicity and flexibility.
+
+This product will never use doctests to test anything besides documentation.
