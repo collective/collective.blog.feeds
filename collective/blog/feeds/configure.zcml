@@ -5,9 +5,11 @@
     i18n_domain="collective.blog.feeds">
 
   <five:registerPackage package="." initialize=".initialize" />
+
+  <include package="Products.fatsyndication" />
   
   <browser:pages
-      for="*"
+      for="Products.Archetypes.interfaces.IBaseFolder"
       class="Products.fatsyndication.browser.feed.GenericFeedView"
       permission="zope2.View">
     <browser:page attribute="atom"  name="atom.xml" />
