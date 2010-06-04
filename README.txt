@@ -21,8 +21,10 @@ It also adds the feeds to the plone header with the standard
 '<link rel="alternate" ...>' type of header links. There probably should be
 a way to turn that off or on, but currently there isn't.
 
-The development of collective.blog.feeds was sponsored by 
-Bergen Offentlige Bibliotek, http://bergenbibliotek.no/
+
+Development sponsored by the **Bergen Public Library** - 
+http://www.nettbiblioteket.no
+
 
 Settings
 --------
