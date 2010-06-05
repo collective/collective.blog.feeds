@@ -22,8 +22,8 @@ It also adds the feeds to the plone header with the standard
 a way to turn that off or on, but currently there isn't.
 
 
-Development sponsored by the **Bergen Public Library** - 
-http://www.nettbiblioteket.no
+The development of collective.blog.feeds was sponsored by the 
+**Bergen Public Library** - http://www.nettbiblioteket.no
 
 
 Settings
@@ -42,12 +42,30 @@ will need to do two things:
    of the "lines" type. Then in that property add each content type that
    your site should see as being blog entries.
    
+   
 Podcasts
 --------
 
 collective.blog.feeds provides an adapter for the ATFile content type with
 podcast enclosure support. You can therefore make podcasts simply by making
 a folder and sticking files in it.
+
+If you have a custom class for podcasts, you need to add an adapter for it
+so that the file get's picked up properly and inserted into an enclosure
+in the feed. If your podcast class subclasses ATFile or provides the same 
+interface you can use the ATFile adapter, by adding this to your configure.zcml:
+
+  <adapter
+    for="<your types class or interface>"
+    provides="Products.basesyndication.interfaces.IFeedEntry"
+    factory="collective.blog.feeds.adapters.FileFeedEntry"
+    /> 
+
+  <adapter
+    for="<your types class or interface>"
+    provides="Products.basesyndication.interfaces.IEnclosure"
+    factory="collective.blog.feeds.adapters.ATFileEnclosure"
+    />
 
 
 What this product do not have
