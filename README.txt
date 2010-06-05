@@ -21,6 +21,8 @@ It also adds the feeds to the plone header with the standard
 '<link rel="alternate" ...>' type of header links. There probably should be
 a way to turn that off or on, but currently there isn't.
 
+collective.blog.feeds supports Plone 3 and Plone 4.
+
 
 The development of collective.blog.feeds was sponsored by the 
 **Bergen Public Library** - http://www.nettbiblioteket.no
@@ -50,10 +52,12 @@ collective.blog.feeds provides an adapter for the ATFile content type with
 podcast enclosure support. You can therefore make podcasts simply by making
 a folder and sticking files in it.
 
-If you have a custom class for podcasts, you need to add an adapter for it
-so that the file get's picked up properly and inserted into an enclosure
-in the feed. If your podcast class subclasses ATFile or provides the same 
-interface you can use the ATFile adapter, by adding this to your configure.zcml:
+If you have a custom class for podcasts, you need to add an adapter for it so
+that the file get's picked up properly and inserted into an enclosure in the
+feed. If your podcast class subclasses ATFile or implements the IATFile
+interface you shouldn't need to do anything. If you don't, but provide a
+similar interface, you can try to use the ATFile adapter, by adding this to
+your configure.zcml:
 
   <adapter
     for="<your types class or interface>"
@@ -66,6 +70,10 @@ interface you can use the ATFile adapter, by adding this to your configure.zcml:
     provides="Products.basesyndication.interfaces.IEnclosure"
     factory="collective.blog.feeds.adapters.ATFileEnclosure"
     />
+
+If your podcast class doesn't implement an interface similar to ATFile, you
+need to make your own adapter. It's not tricky, take a look at the adapters.py
+file to see how the ATFile adapter is done.
 
 
 What this product do not have
