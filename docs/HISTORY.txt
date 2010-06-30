@@ -4,7 +4,7 @@ Changelog
 1.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Forced reverse order in the sorting. [regebro]
 
 
 1.1 (2010-06-05)
