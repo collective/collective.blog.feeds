@@ -42,7 +42,8 @@ class TopicFeedSource(FeedSource):
 class NewsItemFeedEntry(DocumentFeedEntry):
     
     def getBody(self):
-        return self.context.getImage().tag() + self.context.CookedBody()
+        return self.context.getImage() and self.context.getImage().tag() + \
+               self.context.CookedBody() or self.context.CookedBody()
 
 class FileFeedEntry(DocumentFeedEntry):
     
