@@ -25,6 +25,7 @@ setup(name='collective.blog.feeds',
       install_requires=[
           'setuptools',
           'Products.fatsyndication',
+          'Plone',
       ],
       entry_points="""
       # -*- Entry points: -*-
