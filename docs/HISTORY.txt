@@ -12,11 +12,14 @@ Changelog
 
 - c.bfeeds depends on fatsyndication. [regebro]
 
+This version tested with Plone 3.3.4, 4.0b3, 4.0.10, 4.1.4 and 4.2b2.
 
 1.2 (2010-06-30)
 ----------------
 
 - Forced reverse order in the sorting. [regebro]
+
+This version has been tested with Plone 3.3.4 and Plone 4.0b3.
 
 
 1.1 (2010-06-05)
