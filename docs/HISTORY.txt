@@ -4,7 +4,11 @@ Changelog
 1.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Register the feed viewlet for IBaseFolder
+  [erral]
+
+- Use 'index' instead 'render' for the viewlet class to allow overriding via z3c.jbot.
+  [erral]
 
 
 1.3 (2010-10-27)
