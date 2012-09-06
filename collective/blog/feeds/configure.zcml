@@ -21,6 +21,7 @@
 
   <browser:viewlet
     name="collective.blog.feeds.feedsviewlet"
+    for="Products.Archetypes.interfaces.IBaseFolder"
     manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
     class=".viewlets.FeedsViewlet"
     permission="zope2.View"
