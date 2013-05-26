@@ -10,7 +10,7 @@ try:
     from Products.CMFPlone.interfaces.syndication import IFeedSettings
     PLONE43 = True
 except ImportError:
-    PLONE43 = FALSE
+    PLONE43 = False
 
 ptc.setupPloneSite(products=['collective.blog.feeds'])
 
@@ -87,18 +87,19 @@ class FunctionalTestCase(ptc.FunctionalTestCase, TestCase):
         admin.getLink(id='workflow-transition-publish').click()
         
         # Set up the Plone 4.3 syndication:
-        admin.open(portal_url + '/@@syndication-settings')
-        form = admin.getForm(id='form')
-        form.getControl(name='form.widgets.default_enabled:list').value = ['selected']
-        form.getControl(name='form.widgets.show_syndication_button:list').value = ['selected']
-        form.getControl(name='form.buttons.save').click()
-        
-        # And on the folder:
-        # This can't be done through the test-browser, because the form apparently
-        # *required* javascript. Hey ho.
-        feed_settings = IFeedSettings(self.portal['a-blog'])
-        feed_settings.render_body = True
-        feed_settings.feed_types = ('rss.xml', 'RSS', 'atom.xml', 'itunes.xml')
+        if PLONE43:
+            admin.open(portal_url + '/@@syndication-settings')
+            form = admin.getForm(id='form')
+            form.getControl(name='form.widgets.default_enabled:list').value = ['selected']
+            form.getControl(name='form.widgets.show_syndication_button:list').value = ['selected']
+            form.getControl(name='form.buttons.save').click()
+            
+            # And on the folder:
+            # This can't be done through the test-browser, because the form apparently
+            # *required* javascript. Hey ho.
+            feed_settings = IFeedSettings(self.portal['a-blog'])
+            feed_settings.render_body = True
+            feed_settings.feed_types = ('rss.xml', 'RSS', 'atom.xml', 'itunes.xml')
                 
         #############################
         ## Now, make sure things work

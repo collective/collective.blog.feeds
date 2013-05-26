@@ -28,7 +28,7 @@
   
   <adapter
     for="*"
-    factory="Products.fatsyndication.fatsyndication_adapters.feed.BaseFeed"
+    factory="Products.fatsyndication.adapters.feed.BaseFeed"
     provides="Products.basesyndication.interfaces.IFeed"
     />
 
@@ -47,7 +47,7 @@
   <adapter
     for="Products.ATContentTypes.content.document.ATDocument"
     provides="Products.basesyndication.interfaces.IFeedEntry"
-    factory="Products.fatsyndication.fatsyndication_adapters.DocumentFeedEntry"
+    factory="Products.fatsyndication.adapters.DocumentFeedEntry"
     /> 
     
   <adapter
