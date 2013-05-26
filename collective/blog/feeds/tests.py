@@ -6,6 +6,12 @@ from Products.Five import fiveconfigure
 from Products.Five import testbrowser
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import PloneSite
+try:
+    from Products.CMFPlone.interfaces.syndication import IFeedSettings
+    PLONE43 = True
+except ImportError:
+    PLONE43 = FALSE
+
 ptc.setupPloneSite(products=['collective.blog.feeds'])
 
 import collective.blog.feeds
@@ -80,6 +86,20 @@ class FunctionalTestCase(ptc.FunctionalTestCase, TestCase):
         admin.getControl(name='form.button.save').click()
         admin.getLink(id='workflow-transition-publish').click()
         
+        # Set up the Plone 4.3 syndication:
+        admin.open(portal_url + '/@@syndication-settings')
+        form = admin.getForm(id='form')
+        form.getControl(name='form.widgets.default_enabled:list').value = ['selected']
+        form.getControl(name='form.widgets.show_syndication_button:list').value = ['selected']
+        form.getControl(name='form.buttons.save').click()
+        
+        # And on the folder:
+        # This can't be done through the test-browser, because the form apparently
+        # *required* javascript. Hey ho.
+        feed_settings = IFeedSettings(self.portal['a-blog'])
+        feed_settings.render_body = True
+        feed_settings.feed_types = ('rss.xml', 'RSS', 'atom.xml', 'itunes.xml')
+                
         #############################
         ## Now, make sure things work
         #############################
@@ -88,24 +108,32 @@ class FunctionalTestCase(ptc.FunctionalTestCase, TestCase):
         anon = testbrowser.Browser()
         anon.handleErrors = False
         anon.open(blog_url)
+        # Atom and RSS are the only ones that are there both for 
+        # Fatsyndication and Plone 4.3, so we test for them.
+        # (itunes exist as well, but is off by default).
         self.assert_('atom.xml' in anon.contents)
-        self.assert_('feed.rdf' in anon.contents)
-        self.assert_('feed11.rdf' in anon.contents)
         self.assert_('rss.xml' in anon.contents)
         self.assert_('itunes.xml' in anon.contents)
         
         # Now check that the correct info is in the feeds. We'll assume that
-        # basesyndication/fatsyndication is not broken, and check only rss.xml.
-        anon.open(blog_url+'/rss.xml')
+        # basesyndication/fatsyndication is not broken, and check only atom.xml.
+        # (because in fact, rss.xml *is* broken in Plone 4.3).
+        anon.open(blog_url+'/atom.xml')
+
         # The document:
         self.assert_('The main body of the Document' in anon.contents)
         # The news item with image:
         self.assert_('The main body of the News Item' in anon.contents)
         self.assert_('/image' in anon.contents)
         # The file:
-        self.assert_('<enclosure url="http://nohost/plone/a-blog/a-file-blog-entry"' in anon.contents)
-        # But *not* the event, as it has no feed adapter.
-        self.assert_('The main body of the Event' not in anon.contents)
+        self.assert_('<link rel="enclosure" length="16486" href="' in anon.contents)
+        
+        if not PLONE43:
+            # But *not* the event, as it has no feed adapter.
+            self.assert_('The main body of the Event' not in anon.contents)
+        else:
+            # But in 4.3 it does
+            self.assert_('The main body of the Event' in anon.contents)
 
 def test_suite():
     return unittest.TestSuite([

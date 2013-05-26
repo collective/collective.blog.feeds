@@ -1,72 +1,13 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="collective.blog.feeds">
 
   <five:registerPackage package="." initialize=".initialize" />
 
-  <include package="Products.fatsyndication" />
-  
-  <browser:pages
-      for="Products.Archetypes.interfaces.IBaseFolder"
-      class="Products.fatsyndication.browser.feed.GenericFeedView"
-      permission="zope2.View">
-    <browser:page attribute="atom"  name="atom.xml" />
-    <browser:page attribute="rdf"   name="feed.rdf" />
-    <browser:page attribute="rdf11" name="feed11.rdf" />
-    <browser:page attribute="rss"   name="rss.xml" />
-    <browser:page attribute="itunes"   name="itunes.xml" />
-  </browser:pages>
-
-  <browser:viewlet
-    name="collective.blog.feeds.feedsviewlet"
-    for="Products.Archetypes.interfaces.IBaseFolder"
-    manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
-    class=".viewlets.FeedsViewlet"
-    permission="zope2.View"
-    />
-  
-  <adapter
-    for="*"
-    factory="Products.fatsyndication.adapters.feed.BaseFeed"
-    provides="Products.basesyndication.interfaces.IFeed"
-    />
-
-  <adapter
-    for="OFS.interfaces.IFolder"
-    factory="collective.blog.feeds.adapters.FolderFeedSource"
-    provides="Products.basesyndication.interfaces.IFeedSource"
-    />
-
-  <adapter
-    for="Products.ATContentTypes.interface.IATTopic"
-    factory="collective.blog.feeds.adapters.TopicFeedSource"
-    provides="Products.basesyndication.interfaces.IFeedSource"
-    />
-    
-  <adapter
-    for="Products.ATContentTypes.content.document.ATDocument"
-    provides="Products.basesyndication.interfaces.IFeedEntry"
-    factory="Products.fatsyndication.adapters.DocumentFeedEntry"
-    /> 
-    
-  <adapter
-    for="Products.ATContentTypes.content.newsitem.ATNewsItem"
-    provides="Products.basesyndication.interfaces.IFeedEntry"
-    factory="collective.blog.feeds.adapters.NewsItemFeedEntry"
-    /> 
-
-  <adapter
-    for="Products.ATContentTypes.interface.IATFile"
-    provides="Products.basesyndication.interfaces.IFeedEntry"
-    factory="collective.blog.feeds.adapters.FileFeedEntry"
-    /> 
-
-  <adapter
-    for="Products.ATContentTypes.interface.IATFile"
-    provides="Products.basesyndication.interfaces.IEnclosure"
-    factory="collective.blog.feeds.adapters.ATFileEnclosure"
-    />
-    
+  <include zcml:condition="not-have plone-43" file="fatsyndication.zcml"  />
+  <include zcml:condition="have plone-43" file="syndication.zcml"  />
+      
 </configure>
