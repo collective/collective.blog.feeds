@@ -53,6 +53,8 @@ class FileFeedEntry(DocumentFeedEntry):
     def getEnclosure(self):
         return IEnclosure(self.context)
  
+    def getWebURL(self):
+        return self.context.absolute_url() + '/view'
     
 # Enclosure adapter for ATFile:
 
