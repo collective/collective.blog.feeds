@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4 (unreleased)
+2.0 (2013-05-26)
 ----------------
 
 - Register the feed viewlet for IBaseFolder
