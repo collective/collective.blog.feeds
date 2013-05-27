@@ -78,7 +78,7 @@ class FunctionalTestCase(ptc.FunctionalTestCase, TestCase):
         thefile.filename = 'testaudio.mp3'
         thefile.value = open(testfile, 'rb')
         admin.getControl(name='form.button.save').click()
-
+        
         admin.open(blog_url)
         admin.getLink(id='event').click()
         admin.getControl(name='title').value = 'An Event Blog Entry'

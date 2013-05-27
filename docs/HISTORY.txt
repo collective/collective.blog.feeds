@@ -4,7 +4,9 @@ Changelog
 2.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Instead of putting the whole image from the News Item in the feed, I now
+  put a 'mini' image with a link, similar to how the News Item is
+  being rendered with the normal view.
 
 
 2.0 (2013-05-26)
