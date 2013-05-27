@@ -1,0 +1,7 @@
+recursive-include collective *.jpg
+recursive-include collective *.mp3
+recursive-include collective *.pt
+recursive-include collective *.txt
+recursive-include collective *.zcml
+recursive-include docs *.GPL
+recursive-include docs *.txt

@@ -6,7 +6,10 @@ Changelog
 
 - Instead of putting the whole image from the News Item in the feed, I now
   put a 'mini' image with a link, similar to how the News Item is
-  being rendered with the normal view.
+  being rendered with the normal view. [regebro]
+
+Tested with Plone 4.0.10, 4.1.6, 4.2.5 and 4.3.
+Plone 3 is no longer supported, but may still work.
 
 
 2.0 (2013-05-26)
@@ -19,6 +22,8 @@ Changelog
   [erral]
   
 - Now punts to using Plone 4.3's built in syndication under Plone 4.3.
+  Note that since Plone 4.3's syndication is turned off by default, you will have to
+  configure it before it works.
   [regebro]
 
 - File links go to the files web view instead of the file. Podcast readers should use the
@@ -27,6 +32,7 @@ Changelog
 
 Tested with Plone 4.0.10, 4.1.6, 4.2.5 and 4.3.
 Plone 3 is no longer supported, but may still work.
+
 
 1.3 (2010-10-27)
 ----------------
