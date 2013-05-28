@@ -1,8 +1,8 @@
-from zope import interface
-from Products.fatsyndication.adapters.feedsource import BaseFeedSource
-from Products.fatsyndication.adapters.feedentry import DocumentFeedEntry
 from Products.CMFCore.utils import getToolByName
 from Products.basesyndication.interfaces import IFeedEntry, IEnclosure
+from Products.fatsyndication.adapters.feedentry import DocumentFeedEntry
+from Products.fatsyndication.adapters.feedsource import BaseFeedSource
+from zope import interface
 
 
 # Feedsource for Folder, Large Folder and Collection:
